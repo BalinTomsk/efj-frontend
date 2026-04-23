@@ -1,0 +1,271 @@
+<div class="auth-page">
+  @if (registrationSucceeded) {
+    <div class="register-success-view">
+      <div class="register-success-box">
+        <div class="register-success-title">Registration completed</div>
+        <p class="register-success-text">{{ registrationMessage }}</p>
+        <p class="register-success-text">If you do not receive it, check your spam folder.</p>
+        @if (resendActivationMessage) {
+          <p class="register-success-text">{{ resendActivationMessage }}</p>
+        }
+        <div class="register-success-actions">
+          <button type="button" class="text-link-button" (click)="resendActivationEmail()" [disabled]="isResendingActivation">
+            {{ isResendingActivation ? 'Sending new activation link...' : 'Resend activation link' }}
+          </button>
+          <button type="button" class="main-button" (click)="continueToLogin()">
+            Continue to Login
+          </button>
+        </div>
+      </div>
+    </div>
+  } @else if (isLoginMode) {
+    <div class="login-view">
+      <div class="login-box">
+        <div class="login-title">Sign In</div>
+
+        @if (error) {
+          <div class="error-message">
+            {{ error }}
+          </div>
+        }
+
+        <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+          <div class="form-row simple-form-row">
+            <label for="loginValue">Email or Account Name</label>
+            <input
+              type="text"
+              id="loginValue"
+              [(ngModel)]="loginData.login"
+              name="login"
+              required
+              autocomplete="username"
+            >
+          </div>
+
+          <div class="form-row simple-form-row">
+            <label for="loginPassword">Password</label>
+            <input
+              type="password"
+              id="loginPassword"
+              [(ngModel)]="loginData.password"
+              name="password"
+              required
+              autocomplete="current-password"
+            >
+          </div>
+
+          <div class="login-actions">
+            <button
+              type="submit"
+              [disabled]="isLoading || !loginForm.valid"
+              class="main-button"
+            >
+              {{ isLoading ? 'Signing In...' : 'Sign In' }}
+            </button>
+
+            <button type="button" class="text-link-button" (click)="showRegister()">
+              Sign Up
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  } @else {
+    <div class="register-view">
+      <div class="register-title">Register new User Account</div>
+
+      @if (error) {
+        <div class="error-message register-error">
+          {{ error }}
+        </div>
+      }
+
+      <form (ngSubmit)="onRegister()" #registerForm="ngForm" class="register-form">
+        <div class="form-row">
+          <label for="registerUsername">Account Name <span>*</span></label>
+          <input
+            type="text"
+            id="registerUsername"
+            [(ngModel)]="registerData.username"
+            name="username"
+            required
+            minlength="3"
+          >
+        </div>
+
+        <div class="form-row">
+          <label for="registerPassword">Password <span>*</span></label>
+          <input
+            type="password"
+            id="registerPassword"
+            [(ngModel)]="registerData.password"
+            name="password"
+            required
+            minlength="6"
+          >
+        </div>
+
+        <div class="form-row">
+          <label for="registerConfirmPassword">Repeat Password <span>*</span></label>
+          <input
+            type="password"
+            id="registerConfirmPassword"
+            [(ngModel)]="registerData.confirmPassword"
+            name="confirmPassword"
+            required
+          >
+        </div>
+
+        <div class="form-row">
+          <label for="registerEmail">Email <span>*</span></label>
+          <input
+            type="email"
+            id="registerEmail"
+            [(ngModel)]="registerData.email"
+            name="email"
+            required
+            email
+          >
+        </div>
+
+        <div class="form-row">
+          <label for="registerConfirmEmail">Confirm Email <span>*</span></label>
+          <input
+            type="email"
+            id="registerConfirmEmail"
+            [(ngModel)]="registerData.confirmEmail"
+            name="confirmEmail"
+            required
+            email
+          >
+        </div>
+
+        <div class="form-row">
+          <label for="registerFirstName">First Name</label>
+          <input
+            type="text"
+            id="registerFirstName"
+            [(ngModel)]="registerData.firstName"
+            name="firstName"
+          >
+        </div>
+
+        <div class="form-row">
+          <label for="registerLastName">Last Name</label>
+          <input
+            type="text"
+            id="registerLastName"
+            [(ngModel)]="registerData.lastName"
+            name="lastName"
+          >
+        </div>
+
+        <div class="form-row">
+          <label for="registerTitul">Titul</label>
+          <input
+            type="text"
+            id="registerTitul"
+            [(ngModel)]="registerData.titul"
+            name="titul"
+          >
+        </div>
+
+        <div class="form-row">
+          <label for="registerCell">Cell</label>
+          <input
+            type="tel"
+            id="registerCell"
+            [(ngModel)]="registerData.cell"
+            name="cell"
+          >
+        </div>
+
+        <div class="form-row">
+          <label for="registerQuestion">Recovery Question</label>
+          <input
+            type="text"
+            id="registerQuestion"
+            [(ngModel)]="registerData.question"
+            name="question"
+          >
+        </div>
+
+        <div class="form-row">
+          <label for="registerAnswer">Recovery Answer</label>
+          <input
+            type="text"
+            id="registerAnswer"
+            [(ngModel)]="registerData.answer"
+            name="answer"
+          >
+        </div>
+
+        <div class="form-row">
+          <label>Country</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input
+                type="radio"
+                [(ngModel)]="registerData.country"
+                name="country"
+                value="Canada"
+              >
+              <span>Canada</span>
+            </label>
+
+            <label class="radio-option">
+              <input
+                type="radio"
+                [(ngModel)]="registerData.country"
+                name="country"
+                value="USA"
+              >
+              <span>USA</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="registerPostalCode">Postal Code</label>
+          <input
+            type="text"
+            id="registerPostalCode"
+            [(ngModel)]="registerData.postalCode"
+            name="postalCode"
+            class="postal-input"
+          >
+        </div>
+
+        <div class="form-row actions-row">
+          <label></label>
+          <div class="action-buttons">
+            <app-recaptcha-widget
+              [siteKey]="recaptchaSiteKey"
+              (resolved)="onCaptchaResolved($event)"
+            ></app-recaptcha-widget>
+
+            <div class="recaptcha-info">
+              This site is protected by reCAPTCHA and the Google
+              <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+              <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+            </div>
+
+            <div class="register-form-actions">
+              <button
+                type="submit"
+                [disabled]="isLoading || !registerForm.valid || !reCaptchaToken"
+                class="continue-button"
+              >
+                {{ isLoading ? 'Creating account...' : 'Creating account' }}
+              </button>
+
+              <button type="button" class="text-link-button" (click)="showLogin()">
+                Back to Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  }
+</div>

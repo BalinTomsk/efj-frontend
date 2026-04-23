@@ -1,0 +1,170 @@
+####################################################
+#   BLOCKING POPULAR AI/CHAT LLM BOTS
+####################################################
+
+# OpenAI's GPTBot
+User-agent: GPTBot
+Disallow: /
+
+# OpenAI search/retrieval crawlers
+User-agent: OAI-SearchBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+# Anthropic's ClaudeBot
+User-agent: ClaudeBot
+Disallow: /
+
+# Common Anthropic crawler token variants
+User-agent: anthropic-ai
+Disallow: /
+
+# Google AI/training opt-out token
+User-agent: Google-Extended
+Disallow: /
+
+# Apple AI/training opt-out token
+User-agent: Applebot-Extended
+Disallow: /
+
+# Apple web crawler
+User-agent: Applebot
+Disallow: /
+
+# Perplexity crawlers
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Perplexity-User
+Disallow: /
+
+# Amazon
+User-agent: Amazonbot
+Disallow: /
+
+# ByteDance / TikTok
+User-agent: Bytespider
+Disallow: /
+
+# Meta / Facebook AI and fetching agents
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: meta-externalfetcher
+Disallow: /
+
+# Common AI/search ecosystem crawlers
+User-agent: CCBot
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: YouBot
+Disallow: /
+
+User-agent: OmigiliBot
+Disallow: /
+
+User-agent: Omigili
+Disallow: /
+
+User-agent: Timpibot
+Disallow: /
+
+####################################################
+#   BLOCKING POPULAR SEARCH ENGINE CRAWLERS
+####################################################
+
+# Google
+User-agent: Googlebot
+Disallow: /
+
+# Bing
+User-agent: bingbot
+Disallow: /
+
+# Yahoo
+User-agent: Slurp
+Disallow: /
+
+# Baidu
+User-agent: Baiduspider
+Disallow: /
+
+# Yandex
+User-agent: YandexBot
+Disallow: /
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Disallow: /
+
+# Sogou
+User-agent: Sogou
+Disallow: /
+
+# Exalead
+User-agent: Exabot
+Disallow: /
+
+####################################################
+#   BLOCKING OTHER COMMON/AGGRESSIVE SCRAPERS
+####################################################
+
+# Semrush
+User-agent: SemrushBot
+Disallow: /
+
+# Ahrefs
+User-agent: AhrefsBot
+Disallow: /
+
+# Majestic
+User-agent: MJ12bot
+Disallow: /
+
+# DotBot (Moz)
+User-agent: DotBot
+Disallow: /
+
+# Screaming Frog
+User-agent: Screaming Frog SEO Spider
+Disallow: /
+
+####################################################
+#   BLOCKING SOCIAL MEDIA PREVIEWS (IF DESIRED)
+####################################################
+
+# Facebook
+User-agent: facebookexternalhit
+Disallow: /
+
+# Twitter
+User-agent: Twitterbot
+Disallow: /
+
+# LinkedIn
+User-agent: LinkedInBot
+Disallow: /
+
+# Pinterest
+User-agent: Pinterest
+Disallow: /
+
+####################################################
+#   ALLOW EVERYTHING ELSE
+####################################################
+
+User-agent: *
+Allow: /
+
+####################################################
+#   OPTIONAL: PROVIDE A SITEMAP
+####################################################
+Sitemap: https://www.example.com/sitemap.xml

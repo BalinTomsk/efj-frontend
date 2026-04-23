@@ -1,0 +1,11 @@
+<div class="confirm-container">
+  <div class="confirm-card">
+    <h2>Email Confirmation</h2>
+    <p>{{ message }}</p>
+    @if (isLoading) {
+      <div class="loading">Loading...</div>
+    } @else {
+      <button (click)="router.navigate(['/login'])" class="btn">Go to Login</button>
+    }
+  </div>
+</div>

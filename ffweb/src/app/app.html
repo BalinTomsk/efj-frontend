@@ -1,0 +1,26 @@
+@if (authService.isAccessRestricted()) {
+  <app-not-found></app-not-found>
+} @else {
+  <div class="app-container">
+    @if (showHeader()) {
+      <app-header
+        [authenticated]="authService.isAuthenticated()"
+        [username]="authService.currentUser()?.username || 'Account'"
+        (logoutClicked)="logout()"
+      ></app-header>
+    }
+
+    <main class="app-main">
+      <div class="content-wrapper">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <div class="footer-content">
+        <span>&copy; MB Co 2017-2027. All rights reserved. Developed by <a href="mailto:sveta.shishkina@outlook.com" class="footer-link">N@Graninidi</a></span>
+        <span title="global_configuration.config_value where config_attribute = 'counter'">Visits: {{ visitorCounter() }}</span>
+      </div>
+    </footer>
+  </div>
+}

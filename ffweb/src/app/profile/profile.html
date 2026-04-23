@@ -1,0 +1,165 @@
+<div class="profile-container">
+  <div class="profile-card">
+    <div class="profile-header">
+      <h2>User Profile</h2>
+      <button (click)="logout()" class="logout-button">Logout</button>
+    </div>
+
+    @if (isLoading) {
+      <div class="loading">Loading...</div>
+    } @else if (user) {
+      @if (error) {
+        <div class="error-message">
+          {{ error }}
+        </div>
+      }
+
+      @if (success) {
+        <div class="success-message">
+          {{ success }}
+        </div>
+      }
+
+      <!-- Profile Information -->
+      <div class="profile-section">
+        <h3>Profile Information</h3>
+
+        @if (!editMode) {
+          <div class="profile-info">
+            <div class="info-item">
+              <label>Account Name:</label>
+              <span>{{ user.username }}</span>
+            </div>
+            <div class="info-item">
+              <label>Email:</label>
+              <span>{{ user.email }}</span>
+            </div>
+            <div class="info-item">
+              <label>Phone:</label>
+              <span>{{ user.cell || 'N/A' }}</span>
+            </div>
+            <div class="info-item">
+              <label>Member since:</label>
+              <span>{{ user.created_at ? (user.created_at | date:'medium') : 'N/A' }}</span>
+            </div>
+            <div class="info-item">
+              <label>Last updated:</label>
+              <span>{{ user.updated_at ? (user.updated_at | date:'medium') : 'N/A' }}</span>
+            </div>
+          </div>
+          <button (click)="toggleEditMode()" class="edit-button">Edit Profile</button>
+        } @else {
+          <!-- Edit Profile Form -->
+          <form (ngSubmit)="saveProfile()" #editForm="ngForm" class="edit-form">
+            <div class="form-group">
+              <label for="accountName">Account Name</label>
+              <input
+                type="text"
+                id="accountName"
+                [ngModel]="user.username"
+                name="accountName"
+                readonly
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="editEmail">Email</label>
+              <input
+                type="email"
+                id="editEmail"
+                [(ngModel)]="editData.email"
+                name="email"
+                required
+                email
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="editPhone">Phone</label>
+              <input
+                type="tel"
+                id="editPhone"
+                [(ngModel)]="editData.cell"
+                name="cell"
+                autocomplete="tel"
+              >
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" [disabled]="!editForm.valid || isLoading" class="save-button">
+                {{ isLoading ? 'Saving...' : 'Save Contact Details' }}
+              </button>
+              <button type="button" (click)="toggleEditMode()" class="cancel-button">Cancel</button>
+            </div>
+          </form>
+        }
+      </div>
+
+      <!-- Password Section -->
+      <div class="profile-section">
+        <h3>Password</h3>
+
+        @if (!showPasswordForm) {
+          <button (click)="togglePasswordForm()" class="change-password-button">Change Password</button>
+        } @else {
+          <!-- Change Password Form -->
+          <form (ngSubmit)="changePassword()" #passwordForm="ngForm" class="password-form">
+            <div class="form-group">
+              <label for="currentPassword">Current Password</label>
+              <input
+                type="password"
+                id="currentPassword"
+                [(ngModel)]="passwordData.currentPassword"
+                name="currentPassword"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <input
+                type="password"
+                id="newPassword"
+                [(ngModel)]="passwordData.newPassword"
+                name="newPassword"
+                required
+                minlength="6"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirm New Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                [(ngModel)]="passwordData.confirmPassword"
+                name="confirmPassword"
+                required
+              >
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" [disabled]="!passwordForm.valid || isLoading" class="save-button">
+                {{ isLoading ? 'Changing...' : 'Change Password' }}
+              </button>
+              <button type="button" (click)="togglePasswordForm()" class="cancel-button">Cancel</button>
+            </div>
+          </form>
+        }
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="profile-section danger-zone">
+        <h3>Danger Zone</h3>
+        <p>Once you delete your account, there is no going back. Please be certain.</p>
+        <button (click)="deleteAccount()" [disabled]="isLoading" class="delete-button">
+          {{ isLoading ? 'Deleting...' : 'Delete Account' }}
+        </button>
+      </div>
+    } @else {
+      <div class="error-message">
+        {{ error || 'Failed to load user profile. Please try logging in again.' }}
+      </div>
+    }
+  </div>
+</div>

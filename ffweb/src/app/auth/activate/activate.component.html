@@ -1,0 +1,12 @@
+<div class="activate-container">
+  <div class="activate-card">
+    <h2>Account Activation</h2>
+    <p>{{ message }}</p>
+
+    @if (isLoading) {
+      <div class="loading">Loading...</div>
+    } @else {
+      <button type="button" class="btn" (click)="goToHome()">Go to Login</button>
+    }
+  </div>
+</div>
